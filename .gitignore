@@ -1,0 +1,33 @@
+# Analyzed target artifacts (never redistribute)
+artifacts/
+*.apk
+*.xapk
+*.apkm
+*.apks
+*.dex
+*.jar
+
+# Analysis scratch
+analysis/tmp/
+
+# Node / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+*.log
+npm-debug.*
+yarn-error.*
+
+# Android
+*.keystore
+*.jks
+local.properties
+.gradle/
+build/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

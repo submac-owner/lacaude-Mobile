@@ -80,6 +80,19 @@ export const LOCAL_FONT_FAMILIES: { sans?: string; serif?: string; mono?: string
 `;
 fs.writeFileSync(LOCAL_TS, ts);
 
+// Keep the generated override out of commits: mark it skip-worktree so
+// `git add -A` never stages it and the public repo keeps the empty stub.
+try {
+  const { execFileSync } = await import('node:child_process');
+  execFileSync('git', ['update-index', '--skip-worktree', '--', 'src/theme/fonts.local.ts'], {
+    cwd: mobileRoot,
+    stdio: 'ignore',
+  });
+  console.log('marked src/theme/fonts.local.ts skip-worktree (local only)');
+} catch {
+  console.log('note: run `node scripts/install-local-assets.mjs --revert` before committing.');
+}
+
 console.log(`\nwrote ${path.relative(mobileRoot, LOCAL_TS)}`);
 console.log('These files stay on this machine (mobile/assets/fonts/ is git-ignored).');
 console.log('Restart the dev server to pick them up.');

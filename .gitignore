@@ -7,8 +7,12 @@ artifacts/
 *.dex
 *.jar
 
-# Analysis scratch
+# Analysis scratch / large decoded dumps (derived from the target artifact)
 analysis/tmp/
+analysis/apktool/
+analysis/**/smali*/
+mobile/.expo/
+mobile/dist/
 
 # Node / Expo
 node_modules/

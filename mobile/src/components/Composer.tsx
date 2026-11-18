@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { CdsIcon } from './CdsIcon';
 import { useTheme } from '../theme/ThemeProvider';
+import { familyFor } from '../theme/ThemeProvider';
 import { copy, radius, space, type } from '../theme/tokens';
 
 /**
@@ -59,6 +60,7 @@ export function Composer({
               color: colors.text,
               fontSize: type.body.size,
               lineHeight: type.body.lineHeight,
+              fontFamily: familyFor('sans'),
             },
           ]}
           onSubmitEditing={submit}

@@ -23,7 +23,9 @@ try {
 
 async function secureGet(key: string): Promise<string | null> {
   try {
-    if (SecureStore?.getItemAsync) return (await SecureStore.getItemAsync(key)) ?? null;
+    if (Platform.OS !== 'web' && SecureStore?.getItemAsync) {
+      return (await SecureStore.getItemAsync(key)) ?? null;
+    }
     if (Platform.OS === 'web' && typeof localStorage !== 'undefined') return localStorage.getItem(key);
   } catch {
     /* ignore */
@@ -33,7 +35,7 @@ async function secureGet(key: string): Promise<string | null> {
 
 async function secureSet(key: string, value: string): Promise<void> {
   try {
-    if (SecureStore?.setItemAsync) {
+    if (Platform.OS !== 'web' && SecureStore?.setItemAsync) {
       if (value) await SecureStore.setItemAsync(key, value);
       else await SecureStore.deleteItemAsync(key);
       return;

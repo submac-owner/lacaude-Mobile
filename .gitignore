@@ -14,6 +14,9 @@ analysis/**/smali*/
 mobile/.expo/
 mobile/dist/
 
+# Local-only licensed assets extracted from the target (never published)
+mobile/assets/fonts/
+
 # Node / Expo
 node_modules/
 .expo/

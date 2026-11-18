@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import * as Font from 'expo-font';
+import { LOCAL_FONT_ASSETS } from './src/theme/fonts.local';
 import { ThemeProvider, useTheme } from './src/theme/ThemeProvider';
 import { ChatScreen } from './src/screens/ChatScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
@@ -22,7 +24,12 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      const [k, s] = await Promise.all([getKeys(), loadSettings()]);
+      const hasLocalFonts = Object.keys(LOCAL_FONT_ASSETS).length > 0;
+      const [k, s] = await Promise.all([
+        getKeys(),
+        loadSettings(),
+        hasLocalFonts ? Font.loadAsync(LOCAL_FONT_ASSETS).catch(() => undefined) : Promise.resolve(),
+      ]);
       setKeys(k);
       setSettings(s);
       setReady(true);

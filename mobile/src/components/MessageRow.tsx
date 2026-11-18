@@ -1,14 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ClaudeMark } from './ClaudeMark';
-import { useTheme } from '../theme/ThemeProvider';
+import { familyFor, useTheme } from '../theme/ThemeProvider';
 import { radius, space, type } from '../theme/tokens';
-import type { ChatMessage } from '../anthropic/client';
+import type { ChatMessage } from '../providers/types';
 
 function textOf(m: ChatMessage): string {
-  return typeof m.content === 'string'
-    ? m.content
-    : m.content.map((b) => (b.type === 'text' ? b.text : '')).join('');
+  return typeof m.content === 'string' ? m.content : '';
 }
 
 export function MessageRow({ message, streaming }: { message: ChatMessage; streaming?: boolean }) {
@@ -20,7 +18,14 @@ export function MessageRow({ message, streaming }: { message: ChatMessage; strea
     return (
       <View style={styles.userRow}>
         <View style={[styles.bubble, { backgroundColor: colors.bgSubtle }]}>
-          <Text style={{ color: colors.text, fontSize: type.body.size, lineHeight: type.body.lineHeight }}>
+          <Text
+            style={{
+              color: colors.text,
+              fontSize: type.body.size,
+              lineHeight: type.body.lineHeight,
+              fontFamily: familyFor('sans'),
+            }}
+          >
             {text}
           </Text>
         </View>
@@ -36,7 +41,14 @@ export function MessageRow({ message, streaming }: { message: ChatMessage; strea
         </View>
       ) : null}
       {text ? (
-        <Text style={{ color: colors.text, fontSize: type.body.size, lineHeight: type.body.lineHeight }}>
+        <Text
+          style={{
+            color: colors.text,
+            fontSize: type.body.size,
+            lineHeight: type.body.lineHeight,
+            fontFamily: familyFor('sans'),
+          }}
+        >
           {text}
         </Text>
       ) : null}
